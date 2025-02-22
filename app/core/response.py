@@ -1,5 +1,5 @@
 class JsonRet:
-    def __init__(self, code, message, data):
+    def __init__(self, code: int = 200, message: str = 'success', data: dict = None):
         self.code = code
         self.message = message
         self.data = data
