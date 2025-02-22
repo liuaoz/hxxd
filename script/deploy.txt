@@ -1,0 +1,8 @@
+
+1. postgresql
+
+docker pull postgres:17
+
+docker run --name postgres -e POSTGRES_PASSWORD=111111 -d -p 5432:5432 -v /Users/stonechen/data/postgres/data:/var/lib/postgresql/data postgres:17
+
+2.
