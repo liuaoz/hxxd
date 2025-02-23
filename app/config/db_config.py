@@ -1,4 +1,6 @@
+import importlib
 import os
+import pkgutil
 
 from tortoise.contrib.fastapi import register_tortoise
 
@@ -10,11 +12,22 @@ PORT = os.getenv("DB_PORT", "5432")
 
 DATABASE_URL = f"postgres://{USER_NAME}:{PASSWORD}@{HOST}/{DB_NAME}"
 
+
+def discover_models(package):
+    models = []
+    package_dir = os.path.dirname(importlib.import_module(package).__file__)
+    for _, module_name, _ in pkgutil.iter_modules([package_dir]):
+        models.append(f"{package}.{module_name}")
+    return models
+
+
+model_modules = discover_models("models")
+
 TORTOISE_ORM = {
     "connections": {"default": DATABASE_URL},
     "apps": {
         "models": {
-            "models": ["models.user"],  # 指定模型文件路径
+            "models": model_modules,  # 指定模型文件路径
             "default_connection": "default",
         },
     },

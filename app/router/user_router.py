@@ -1,5 +1,3 @@
-import asyncio
-
 from fastapi import APIRouter
 
 from core.response import JsonRet
