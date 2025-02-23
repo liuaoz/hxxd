@@ -38,6 +38,12 @@ LOGGING_CONFIG = {
     },
 }
 
+# 标志变量，确保日志配置只加载一次
+_logging_configured = False
+
 
 def setup_logging():
-    logging.config.dictConfig(LOGGING_CONFIG)
+    global _logging_configured
+    if not _logging_configured:
+        logging.config.dictConfig(LOGGING_CONFIG)
+        _logging_configured = True

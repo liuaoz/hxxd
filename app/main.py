@@ -15,4 +15,4 @@ init_db(app)
 app.include_router(user_router.user_router)
 
 if __name__ == '__main__':
-    uvicorn.run(app='app.main:app', host="localhost", port=8080, reload=True)
+    uvicorn.run(app='app.main:app', host="localhost", port=8080, reload=False)
