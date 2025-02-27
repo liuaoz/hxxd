@@ -5,6 +5,17 @@ from core.response import JsonRet
 user_router = APIRouter()
 
 
+@user_router.get("/loginByCode")
+async def login_by_code(login_info: dict):
+    # login
+
+    return JsonRet(data={
+        'token': '',
+        'tokenHead': '',
+        'username': '',
+    })
+
+
 # create user
 @user_router.post("/user")
 async def create_user():

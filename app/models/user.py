@@ -12,8 +12,6 @@ class User(BaseModel):
     nick_name = fields.CharField(max_length=50)
     open_id = fields.CharField(max_length=50)
     union_id = fields.CharField(max_length=50)
-    create_time = fields.DatetimeField(auto_now_add=True)
-    update_time = fields.DatetimeField(auto_now=True)
 
     class Meta:
         table = "users"

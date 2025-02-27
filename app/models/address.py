@@ -16,8 +16,6 @@ class Address(BaseModel):
     district = fields.CharField(max_length=50)
     detail = fields.CharField(max_length=100)
     is_default = fields.BooleanField(default=False)
-    create_time = fields.DatetimeField(auto_now_add=True)
-    update_time = fields.DatetimeField(auto_now=True)
 
     class Meta:
         table = "address"
