@@ -5,3 +5,4 @@ tortoise~=0.1.1
 asyncpg~=0.24.0
 requests~=2.32.3
 pycryptodome~=3.19.0
+PyJWT~=2.3.0

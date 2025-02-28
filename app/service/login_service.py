@@ -1,9 +1,13 @@
 import base64
 import json
 
+import jwt
 from Crypto.Cipher import AES
 
+from config.jwt_config import JWT_SECRET
+from service.user_service import UserService
 from service.wx_service import code_2_session
+from util.jwt_util import generate_token
 
 
 def decrypt_user_info(encrypted_data, iv, session_key):
@@ -33,13 +37,19 @@ async def login(code, encrypted_data, iv):
     :param iv:
     :return:
     """
-    token = None
-    # base64 decode
-    decoded_bytes = base64.b64decode(encrypted_data)
-    iv_bytes = base64.b64decode(iv)
     session = await code_2_session(code)
 
-    if session and session.get("openid"):
+    if session and 'openid' in session:
+        open_id = session.get("openid")
         session_key = session.get("session_key")
-        user_info = decrypt_user_info(decoded_bytes, iv_bytes, session_key)
+        user_info = decrypt_user_info(encrypted_data, iv, session_key)
+        phone = user_info.get("phoneNumber")
         print(user_info)
+        await UserService.register_user(phone, open_id)
+        payload = {
+            'open_id': open_id,
+            'session_key': session_key,
+            'user_info': user_info
+        }
+        return generate_token(payload), phone
+    raise Exception("登录失败")

@@ -1,0 +1,7 @@
+import os
+
+JWT_TOKEN_HEADER = os.getenv("JWT_TOKEN_HEADER")
+JWT_SECRET = os.getenv("JWT_SECRET")
+JWT_EXPIRATION = os.getenv("JWT_EXPIRATION")
+JWT_TOKEN_HEAD = os.getenv("JWT_TOKEN")
+JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")

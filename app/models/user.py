@@ -9,9 +9,8 @@ class User(BaseModel):
     """
     id = fields.IntField(pk=True)
     phone = fields.CharField(max_length=11)
-    nick_name = fields.CharField(max_length=50)
-    open_id = fields.CharField(max_length=50)
-    union_id = fields.CharField(max_length=50)
+    nickname = fields.CharField(max_length=50)
+    openid = fields.CharField(max_length=50)
 
     class Meta:
         table = "users"
