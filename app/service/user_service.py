@@ -4,8 +4,11 @@ from models.user import User
 class UserService:
 
     @staticmethod
-    async def create_user(user_info: dict):
-        await User.create(**user_info)
+    async def create_user(phone, openid):
+        user = {
+
+        }
+        await User.create(**user)
 
     @staticmethod
     async def get_user(user_id: int):
