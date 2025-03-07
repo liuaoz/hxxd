@@ -13,7 +13,7 @@ def generate_token(payload: dict):
     :return:
     """
     payload.update({
-        'exp': datetime.utcnow() + timedelta(minutes=JWT_EXPIRATION)
+        'exp': datetime.utcnow() + timedelta(minutes=int(JWT_EXPIRATION))
     })
     return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 

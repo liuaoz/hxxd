@@ -6,4 +6,6 @@ class FileUsageType(Enum):
 
     GOODS_IMAGE = 'goods_image'
 
+    HOME_LUN_BO = 'home_lun_bo'
+
     LOGO = 'logo'

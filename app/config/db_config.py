@@ -2,6 +2,7 @@ import importlib
 import os
 import pkgutil
 
+from tortoise import Tortoise
 from tortoise.contrib.fastapi import register_tortoise
 
 HOST = os.getenv("DB_HOST", "localhost")
@@ -42,3 +43,14 @@ def init_db(app):
         generate_schemas=True,
         add_exception_handlers=True,  # 添加异常处理器
     )
+
+
+async def init_db2():
+    """
+    for test
+    """
+    await Tortoise.init(
+        db_url=DATABASE_URL,  # 使用 SQLite 作为示例
+        modules={'models': model_modules}  # 如果是当前文件，使用 '__main__'
+    )
+    await Tortoise.generate_schemas()  # 生成数据库表

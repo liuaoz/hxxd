@@ -35,3 +35,17 @@ class MinioService:
         except Exception as e:
             logging.error("get file error: %s", e)
             return None
+
+    @staticmethod
+    def list_files(bucket_name, prefix):
+        """
+        获取文件列表
+        :param bucket_name: 桶名称
+        :return:
+        """
+        client = get_minio_client()
+        try:
+            return client.list_objects(bucket_name, prefix=prefix)
+        except Exception as e:
+            logging.error("list files error: %s", e)
+            return None
