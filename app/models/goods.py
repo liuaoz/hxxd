@@ -7,7 +7,6 @@ class Goods(BaseModel):
     """
     商品表
     """
-    id = fields.IntField(pk=True)
     title = fields.CharField(max_length=50)
     price = fields.DecimalField(max_digits=10, decimal_places=2)
     stock = fields.IntField()

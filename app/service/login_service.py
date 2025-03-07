@@ -1,10 +1,9 @@
 import base64
 import json
 
-import jwt
 from Crypto.Cipher import AES
+from pydantic import BaseModel
 
-from config.jwt_config import JWT_SECRET
 from service.user_service import UserService
 from service.wx_service import code_2_session
 from util.jwt_util import generate_token
@@ -47,9 +46,11 @@ async def login(code, encrypted_data, iv):
         print(user_info)
         await UserService.register_user(phone, open_id)
         payload = {
-            'open_id': open_id,
-            'session_key': session_key,
-            'user_info': user_info
+            'sub': open_id,
         }
         return generate_token(payload), phone
     raise Exception("登录失败")
+
+
+class TokenData(BaseModel):
+    username: str | None = None

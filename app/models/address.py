@@ -7,7 +7,6 @@ class Address(BaseModel):
     """
     用户收获地址表
     """
-    id = fields.IntField(pk=True)
     user = fields.ForeignKeyField('models.User', related_name='address_user')
     name = fields.CharField(max_length=50)
     phone = fields.CharField(max_length=11)

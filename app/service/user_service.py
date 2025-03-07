@@ -39,3 +39,7 @@ class UserService:
     @staticmethod
     async def get_user_by_phone(phone):
         return await User.get(phone=phone)
+
+    @staticmethod
+    async def get_user_by_openid(openid):
+        return await User.get(openid=openid)

@@ -7,7 +7,6 @@ class OrderMaster(BaseModel):
     """
     订单表
     """
-    id = fields.IntField(pk=True)
     user = fields.ForeignKeyField('models.User', related_name='order_master_user')
 
     # 订单信息

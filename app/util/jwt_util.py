@@ -1,5 +1,9 @@
+import logging
+from datetime import timedelta, datetime
+
 import jwt
-from config.jwt_config import JWT_SECRET, JWT_EXPIRATION, JWT_ALGORITHM
+
+from config.jwt_config import JWT_SECRET, JWT_ALGORITHM, JWT_EXPIRATION
 
 
 def generate_token(payload: dict):
@@ -9,14 +13,14 @@ def generate_token(payload: dict):
     :return:
     """
     payload.update({
-        'exp': JWT_EXPIRATION
+        'exp': datetime.utcnow() + timedelta(minutes=JWT_EXPIRATION)
     })
     return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
 
 def verify_token(token):
     try:
-        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
-        return payload
-    except jwt.ExpiredSignatureError:
+        return jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+    except Exception as e:
+        logging.error(f'Verify token error: {e}')
         return None

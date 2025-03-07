@@ -1,3 +1,5 @@
+import logging
+
 import requests
 
 from config.wx_config import WX_APP_ID, WX_APP_SECRET
@@ -15,5 +17,5 @@ async def code_2_session(code: str):
     resp = requests.get(url)
     if resp.status_code == 200:
         return resp.json()
-    print("code_2_session error: ", resp.text)
+    logging.error("code_2_session error: %s", resp.text)
     return None
