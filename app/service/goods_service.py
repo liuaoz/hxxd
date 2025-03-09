@@ -14,3 +14,7 @@ class GoodsService:
     @staticmethod
     async def get_goods_list():
         return await Goods.all()
+
+    @staticmethod
+    async def get_goods_list_by_category_page(category_id: int, page: int = 1, size: int = 10):
+        return await Goods.filter(category_id=category_id).offset((page - 1) * size).limit(size).all()
