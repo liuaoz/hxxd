@@ -21,16 +21,17 @@ async def home():
         } for file in files
     ]
     return JsonRet(message='Hello World', data={
-        "advertiseList": advertise_list,
-        "hotProductList": [{
+        'advertiseList': advertise_list,
+        'hotProductList': [{
             'id': good.id,
-            'name': good.name,
+            'name': good.title,
             'price': good.price,
             'pic': f'{SERVER_HOST}/file/{good.main_image}',
-            'remark': good.remark,
+            'remark': good.detail,
         }
             for good in goods
-        ]
+        ],
+        'notice': '海鲜干货，敬请收藏'
     })
 
 

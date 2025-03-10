@@ -15,7 +15,7 @@ class Goods(BaseModel):
     is_hot = fields.BooleanField(default=False, description="是否是热门商品")
     category = fields.ForeignKeyField('models.Category', related_name='good_category')
     main_image = fields.IntField(description="商品主图", null=True)
-    thumbnail_images = fields.JSONField(description="商品缩略图")
+    thumb_images = fields.JSONField(description="商品缩略图")
     detail_images = fields.JSONField(description="商品详情图")
 
     class Meta:
