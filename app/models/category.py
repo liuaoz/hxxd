@@ -3,7 +3,7 @@ from tortoise import fields
 from models import BaseModel
 
 
-class GoodsCategory(BaseModel):
+class Category(BaseModel):
     """
     分类表
     """
@@ -13,4 +13,4 @@ class GoodsCategory(BaseModel):
     parent_id = fields.IntField()
 
     class Meta:
-        table = "goods_category"
+        table = "category"
