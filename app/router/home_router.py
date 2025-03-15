@@ -45,7 +45,7 @@ async def home():
             'name': good.title,
             'price': good.price,
             'pic': f'{SERVER_HOST}/file/{good.main_image}',
-            'remark': good.detail,
+            'detail': good.detail,
         }
             for good in goods
         ],
