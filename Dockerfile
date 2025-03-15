@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 复制项目代码到容器中
-COPY ./app/ /app/
+COPY ./app/ .
 
 # 暴露端口（FastAPI 默认使用 8000 端口）
 EXPOSE 8080
