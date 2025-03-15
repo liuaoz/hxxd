@@ -1,5 +1,3 @@
-import base64
-
 from fastapi import APIRouter
 
 from config.base_config import SERVER_HOST
@@ -9,6 +7,26 @@ from service.file_service import FileService
 from service.goods_service import GoodsService
 
 home_router = APIRouter()
+
+
+@home_router.get("/tab_bar")
+async def get_tab_bar():
+    data = [
+        {
+            "index": 0,
+            "text": "首页",
+            "icon": "https://example.com/icon-home.png",
+            "selectedIcon": "https://example.com/icon-home-active.png"
+        },
+        {
+            "index": 1,
+            "text": "订单",
+            "icon": "https://example.com/icon-order.png",
+            "selectedIcon": "https://example.com/icon-order-active.png"
+        }
+    ]
+
+    return JsonRet(message='get tab bar', data=data)
 
 
 @home_router.get("/content")

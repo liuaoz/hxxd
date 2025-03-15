@@ -33,13 +33,6 @@ async def login_by_code(login_info: LoginRequest):
     })
 
 
-@login_router.get("/info")
-async def get_user_info():
-    return JsonRet(code=400, data={
-        'username': '测试',
-    })
-
-
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     payload = verify_token(token)
     if payload is None:
@@ -63,3 +56,10 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
             headers={"WWW-Authenticate": "Bearer"},
         )
     return user
+
+
+@login_router.get("/info")
+async def get_user_info(user=Depends(get_current_user)):
+    return JsonRet(code=400, data={
+        'username': '测试',
+    })
