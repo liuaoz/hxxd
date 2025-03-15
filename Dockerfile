@@ -7,7 +7,7 @@ WORKDIR /app
 # 复制依赖文件并安装
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # 复制项目代码到容器
 COPY ./app /app
