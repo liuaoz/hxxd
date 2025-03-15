@@ -3,7 +3,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from app.config.db_config import init_db
+from config.db_config import init_db
 from config.log_config import setup_logging
 from router import user_router, home_router, login_router, file_router, address_router, cart_router
 
