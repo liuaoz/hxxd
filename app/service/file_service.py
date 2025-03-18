@@ -19,5 +19,9 @@ class FileService:
         return await File.filter(usage_type=FileUsageType.GOODS_CATEGORY_ICON.value).all()
 
     @staticmethod
+    async def get_tab_bar_icons():
+        return await File.filter(usage_type=FileUsageType.TAB_BAR_ICON.value).all()
+
+    @staticmethod
     async def get_file_by_usage_type(usage_type: FileUsageType):
         return await File.filter(usage_type=usage_type.value).all()

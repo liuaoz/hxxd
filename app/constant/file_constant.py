@@ -9,3 +9,5 @@ class FileUsageType(Enum):
     HOME_LUN_BO = 'home_lun_bo'
 
     LOGO = 'logo'
+
+    TAB_BAR_ICON = 'tab_bar_icon'

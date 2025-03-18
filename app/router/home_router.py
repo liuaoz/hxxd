@@ -14,16 +14,27 @@ async def get_tab_bar():
     data = [
         {
             "index": 0,
-            "text": "首页",
-            "icon": "https://example.com/icon-home.png",
-            "selectedIcon": "https://example.com/icon-home-active.png"
+            "text": '首页',
+            "iconPath": f'{SERVER_HOST}/file/100',
+            "selectedIconPath": f'{SERVER_HOST}/file/200'
         },
         {
             "index": 1,
-            "text": "订单",
-            "icon": "https://example.com/icon-order.png",
-            "selectedIcon": "https://example.com/icon-order-active.png"
-        }
+            "text": '食谱',
+            "iconPath": f'{SERVER_HOST}/file/300',
+            "selectedIconPath": f'{SERVER_HOST}/file/400'
+        }, {
+            "index": 2,
+            "text": '购物车',
+            "iconPath": f'{SERVER_HOST}/file/500',
+            "selectedIconPath": f'{SERVER_HOST}/file/600'
+        }, {
+            "index": 3,
+            "text": '我',
+            "iconPath": f'{SERVER_HOST}/file/700',
+            "selectedIconPath": f'{SERVER_HOST}/file/800'
+        },
+
     ]
 
     return JsonRet(message='get tab bar', data=data)
