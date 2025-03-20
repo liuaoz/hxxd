@@ -20,7 +20,7 @@ async def get_tab_bar():
         },
         {
             "index": 1,
-            "text": '食谱',
+            "text": '客服',
             "iconPath": f'{SERVER_HOST}/file/300',
             "selectedIconPath": f'{SERVER_HOST}/file/400'
         }, {
