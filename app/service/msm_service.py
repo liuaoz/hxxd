@@ -14,7 +14,3 @@ async def single_send(text, mobile):
     url = f'{YP_BASE_URL}/single_send.json'
     resp = await loop.run_in_executor(None, lambda: fetch_url(url, {'text': text, 'mobile': mobile}))
     return resp.json()
-
-
-if __name__ == '__main__':
-    asyncio.run(single_send('Hello', '1234567890'))

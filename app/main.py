@@ -28,4 +28,4 @@ app.include_router(cart_router.cart_router, prefix="/cart")
 app.include_router(chat_router.chat_router, prefix="/chat")
 
 if __name__ == '__main__':
-    uvicorn.run(app='app.main:app', host="localhost", port=8080, reload=False)
+    uvicorn.run(app='app.main:app', host="0.0.0.0", port=8080, reload=False)
