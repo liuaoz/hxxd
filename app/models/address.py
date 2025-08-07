@@ -14,7 +14,7 @@ class Address(BaseModel):
     city = fields.CharField(max_length=50)
     district = fields.CharField(max_length=50)
     detail = fields.CharField(max_length=100)
-    is_default = fields.BooleanField(default=False)
+    default_status = fields.IntField(default=0, help_text="是否默认地址，0-否，1-是")
 
     class Meta:
         table = "address"
