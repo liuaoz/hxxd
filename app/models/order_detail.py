@@ -7,7 +7,7 @@ class OrderDetail(BaseModel):
     """
     订单详情表
     """
-    order = fields.ForeignKeyField('models.OrderMaster', related_name='order_detail_order_master')
+    order = fields.ForeignKeyField('models.Order', related_name='order_detail_order')
     product = fields.ForeignKeyField('models.Product', related_name='order_detail_product')
     product_title = fields.CharField(max_length=50)
     product_image = fields.TextField()

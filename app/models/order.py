@@ -3,11 +3,11 @@ from tortoise import fields
 from models import BaseModel
 
 
-class OrderMaster(BaseModel):
+class Order(BaseModel):
     """
     订单表
     """
-    user = fields.ForeignKeyField('models.User', related_name='order_master_user')
+    user = fields.ForeignKeyField('models.User', related_name='order_user')
 
     # 订单信息
     order_no = fields.CharField(max_length=20)
@@ -22,4 +22,4 @@ class OrderMaster(BaseModel):
     recipient_address = fields.CharField(max_length=100)
 
     class Meta:
-        table = "order_master"
+        table = "order"

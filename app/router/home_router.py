@@ -1,9 +1,11 @@
 from fastapi import APIRouter
 
-from config.base_config import SERVER_HOST
+from config.base_config import SERVER_HOST, get_url
 from constant.file_constant import FileUsageType
 from core.response import JsonRet
+from service.category_service import CategoryService
 from service.file_service import FileService
+from service.home_banner_service import HomeBannerService
 from service.product_service import ProductService
 
 home_router = APIRouter()
@@ -42,38 +44,39 @@ async def get_tab_bar():
 
 @home_router.get("/content")
 async def home():
-    files = await FileService.get_file_by_usage_type(FileUsageType.HOME_LUN_BO)
-    goods = await ProductService.get_hot_product_list()
+    products = await ProductService.get_hot_product_list()
+
+    home_banners = await HomeBannerService.get_all()
     advertise_list = [
         {
-            'pic': f'{SERVER_HOST}/file/{file.id}',
-        } for file in files
+            'pic': get_url(banner.file_id),
+        } for banner in home_banners
     ]
     return JsonRet(message='Hello World', data={
         'advertiseList': advertise_list,
         'hotProductList': [{
-            'id': good.id,
-            'name': good.title,
-            'price': good.price,
-            'pic': f'{SERVER_HOST}/file/{good.main_image}',
-            'detail': good.detail,
+            'id': product.id,
+            'name': product.title,
+            'price': product.price,
+            'pic': get_url(product.main_image_file_id),
+            'detail': product.detail,
         }
-            for good in goods
+            for product in products
         ],
         'notice': '海鲜干货，敬请收藏'
     })
 
 
-@home_router.get("/productCateList/{category_id}")
-async def get_categories(category_id: int):
-    files = await FileService.get_product_categories_icons()
+@home_router.get("/productCateList")
+async def get_categories():
+    categories = await CategoryService.get_all()
 
     data = [
         {
-            'icon': f'{SERVER_HOST}/file/{file.id}',
-            'id': file.id,
-            'name': file.remark,
-        } for file in files
+            'icon': get_url(category.file_id),
+            'id': category.id,
+            'name': category.name,
+        } for category in categories
     ]
 
     return JsonRet(message='get categories', data=data)

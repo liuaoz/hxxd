@@ -6,7 +6,7 @@ from service.minio_service import MinioService
 class FileService:
 
     @staticmethod
-    async def insert_file(file_info: dict):
+    async def create(file_info: dict):
         await File.create(**file_info)
 
     @staticmethod
@@ -25,3 +25,7 @@ class FileService:
     @staticmethod
     async def get_file_by_usage_type(usage_type: FileUsageType):
         return await File.filter(usage_type=usage_type.value).all()
+
+    @staticmethod
+    async def delete_all():
+        await File.all().delete()

@@ -4,15 +4,15 @@ from models.product import Product
 class ProductService:
 
     @staticmethod
-    async def create_product(product_info: dict):
+    async def create(product_info: dict):
         await Product.create(**product_info)
 
     @staticmethod
-    async def get_product(product_id: int):
+    async def get(product_id: int):
         return await Product.get(id=product_id)
 
     @staticmethod
-    async def get_product_list():
+    async def get_all():
         return await Product.all()
 
     @staticmethod
@@ -22,3 +22,7 @@ class ProductService:
     @staticmethod
     async def get_hot_product_list():
         return await Product.filter(is_hot=True).all()
+
+    @staticmethod
+    async def delete_all():
+        await Product.all().delete()

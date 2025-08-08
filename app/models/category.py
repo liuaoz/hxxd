@@ -7,10 +7,11 @@ class Category(BaseModel):
     """
     分类表
     """
-    icon = fields.CharField(max_length=200)
+    file_id = fields.IntField()
     code = fields.CharField(max_length=50)
     name = fields.CharField(max_length=50)
-    parent_id = fields.IntField()
+    active = fields.BooleanField(default=True, description="分类状态, True: 启用, False: 禁用")
+    sort_order = fields.IntField(default=0, description="分类排序")
 
     class Meta:
         table = "category"

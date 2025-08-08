@@ -8,7 +8,7 @@ good_router = APIRouter()
 
 @good_router.get("/list")
 async def get_product_list():
-    return JsonRet(data=await ProductService.get_product_list())
+    return JsonRet(data=await ProductService.get_all())
 
 
 # 根据商品类别和分页条件，获取商品列表
@@ -20,13 +20,13 @@ async def get_product_list_by_category(category_id: int, page: int = 1, size: in
 
 @good_router.get("/{goods_id}")
 async def get_product_detail(goods_id: int):
-    goods = await ProductService.get_product(goods_id)
+    goods = await ProductService.get(goods_id)
     return JsonRet(data=goods)
 
 
 @good_router.get("/image/list/{goods_id}")
 async def get_product_images(goods_id: int):
-    goods = await ProductService.get_product(goods_id)
+    goods = await ProductService.get(goods_id)
     if not goods:
         return JsonRet(code=404, message="商品不存在")
     return JsonRet(data=goods.images)
