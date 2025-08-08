@@ -15,7 +15,7 @@ class FileService:
         return MinioService.get_file(file.bucket_name, file.path)
 
     @staticmethod
-    async def get_goods_categories_icons():
+    async def get_product_categories_icons():
         return await File.filter(usage_type=FileUsageType.GOODS_CATEGORY_ICON.value).all()
 
     @staticmethod

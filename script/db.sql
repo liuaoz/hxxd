@@ -20,7 +20,7 @@ insert into category(id, name, code, icon, parent_id)
 
 -- init goods
 insert
-into goods(id, title, price, stock, status, detail, is_hot, main_image, thumb_images, detail_images, category_id)
+into product(id, title, price, stock, status, detail, is_hot, main_image, thumb_images, detail_images, category_id)
 values
     (100, '海参', 100, 100, True, '海参是海洋中的一种软体动物，富含蛋白质和多种营养成分，具有滋补养生的功效。', True, '1000', '[1001]', '[1001,1002]', 1),
     (200, '黑虎虾', 100, 100, True, '黑虎虾是一种大型海虾，肉质鲜美，富含蛋白质和微量元素，是海鲜中的珍品。', True, '1000', '[1001]', '[1001,1002]', 2),

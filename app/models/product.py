@@ -3,7 +3,7 @@ from tortoise import fields
 from models import BaseModel
 
 
-class Goods(BaseModel):
+class Product(BaseModel):
     """
     商品表
     """
@@ -13,10 +13,10 @@ class Goods(BaseModel):
     status = fields.BooleanField(default=True, description="商品状态, True: 上架, False: 下架")
     detail = fields.TextField()
     is_hot = fields.BooleanField(default=False, description="是否是热门商品")
-    category = fields.ForeignKeyField('models.Category', related_name='good_category')
+    category = fields.ForeignKeyField('models.Category', related_name='product_category')
     main_image = fields.IntField(description="商品主图", null=True)
     thumb_images = fields.JSONField(description="商品缩略图")
     detail_images = fields.JSONField(description="商品详情图")
 
     class Meta:
-        table = "goods"
+        table = "product"

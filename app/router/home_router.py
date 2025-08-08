@@ -4,7 +4,7 @@ from config.base_config import SERVER_HOST
 from constant.file_constant import FileUsageType
 from core.response import JsonRet
 from service.file_service import FileService
-from service.goods_service import GoodsService
+from service.product_service import ProductService
 
 home_router = APIRouter()
 
@@ -43,7 +43,7 @@ async def get_tab_bar():
 @home_router.get("/content")
 async def home():
     files = await FileService.get_file_by_usage_type(FileUsageType.HOME_LUN_BO)
-    goods = await GoodsService.get_hot_goods_list()
+    goods = await ProductService.get_hot_product_list()
     advertise_list = [
         {
             'pic': f'{SERVER_HOST}/file/{file.id}',
@@ -66,7 +66,7 @@ async def home():
 
 @home_router.get("/productCateList/{category_id}")
 async def get_categories(category_id: int):
-    files = await FileService.get_goods_categories_icons()
+    files = await FileService.get_product_categories_icons()
 
     data = [
         {
