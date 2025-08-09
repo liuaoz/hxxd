@@ -21,7 +21,7 @@ class ConversationService:
 
         # 测试，随机生成回复
         await asyncio.sleep(1)
-        response = '你好，我是机器人，我是回复的内容'
+        response = '您好，我是您的购物助手，目前正在开发中，敬请期待！'
 
         bot_resp = await ConversationService.create_bot_message(response, user_id, session_id, conversation_id)
         return {
