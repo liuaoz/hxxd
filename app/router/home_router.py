@@ -17,14 +17,14 @@ async def get_tab_bar():
         {
             "index": 0,
             "text": '首页',
-            "iconPath": f'{SERVER_HOST}/file/100',
-            "selectedIconPath": f'{SERVER_HOST}/file/200'
+            "iconPath": f'{SERVER_HOST}/file/300',
+            "selectedIconPath": f'{SERVER_HOST}/file/400'
         },
         {
             "index": 1,
             "text": '客服',
-            "iconPath": f'{SERVER_HOST}/file/300',
-            "selectedIconPath": f'{SERVER_HOST}/file/400'
+            "iconPath": f'{SERVER_HOST}/file/900',
+            "selectedIconPath": f'{SERVER_HOST}/file/1000'
         }, {
             "index": 2,
             "text": '购物车',

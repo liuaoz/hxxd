@@ -174,8 +174,8 @@ PRODUCTS = [
         'detail': '海参是海洋中的一种软体动物，富含蛋白质和多种营养成分，具有滋补养生的功效。',
         'is_hot': True,
         'category_id': 5,
-        'main_image_file_id': 1000,
-        'thumbnail_image_file_id': 1000
+        'main_image_file_id': 50,
+        'thumbnail_image_file_id': 50
     },
     {
         'id': 200,
@@ -186,8 +186,8 @@ PRODUCTS = [
         'detail': '黑虎虾是一种大型海虾，肉质鲜美，富含蛋白质和微量元素，是海鲜中的珍品。',
         'is_hot': True,
         'category_id': 1,
-        'main_image_file_id': 1000,
-        'thumbnail_image_file_id': 1000
+        'main_image_file_id': 10,
+        'thumbnail_image_file_id': 10
     },
     {
         'id': 300,
@@ -198,8 +198,8 @@ PRODUCTS = [
         'detail': '鲍鱼是一种名贵的海贝类，肉质鲜嫩，营养丰富，常被视为海味珍品。',
         'is_hot': True,
         'category_id': 4,
-        'main_image_file_id': 3000,
-        'thumbnail_image_file_id': 3000
+        'main_image_file_id': 40,
+        'thumbnail_image_file_id': 40
     },
     {
         'id': 400,
@@ -210,8 +210,8 @@ PRODUCTS = [
         'detail': '大闸蟹是中国特产，以其鲜美的蟹肉和蟹黄闻名，深受食客喜爱。',
         'is_hot': True,
         'category_id': 3,
-        'main_image_file_id': 4000,
-        'thumbnail_image_file_id': 4000
+        'main_image_file_id': 30,
+        'thumbnail_image_file_id': 30
     },
     {
         'id': 500,
@@ -222,8 +222,8 @@ PRODUCTS = [
         'detail': '紫菜是一种常见的海藻，富含多种营养成分，常用于汤品和寿司等料理。',
         'is_hot': True,
         'category_id': 7,
-        'main_image_file_id': 5000,
-        'thumbnail_image_file_id': 5000
+        'main_image_file_id': 70,
+        'thumbnail_image_file_id': 70
     }
 
 ]
