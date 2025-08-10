@@ -15,24 +15,24 @@ async def get_tab_bar():
         {
             "index": 0,
             "text": '首页',
-            "iconPath": f'{SERVER_HOST}/file/300',
-            "selectedIconPath": f'{SERVER_HOST}/file/400'
+            "iconPath": 300,
+            "selectedIconPath": 400
         },
         {
             "index": 1,
             "text": 'AI助手',
-            "iconPath": f'{SERVER_HOST}/file/900',
-            "selectedIconPath": f'{SERVER_HOST}/file/1000'
+            "iconPath": 900,
+            "selectedIconPath": 1000
         }, {
             "index": 2,
             "text": '购物车',
-            "iconPath": f'{SERVER_HOST}/file/500',
-            "selectedIconPath": f'{SERVER_HOST}/file/600'
+            "iconPath": 500,
+            "selectedIconPath": 600
         }, {
             "index": 3,
             "text": '我',
-            "iconPath": f'{SERVER_HOST}/file/700',
-            "selectedIconPath": f'{SERVER_HOST}/file/800'
+            "iconPath": 700,
+            "selectedIconPath": 800
         },
 
     ]
@@ -47,7 +47,7 @@ async def home():
     home_banners = await HomeBannerService.get_all()
     advertise_list = [
         {
-            'pic': get_url(banner.file_id),
+            'pic': banner.file_id,
         } for banner in home_banners
     ]
     return JsonRet(message='Hello World', data={
@@ -56,8 +56,8 @@ async def home():
             'id': product.id,
             'name': product.title,
             'price': product.price,
-            'pic': get_url(product.main_image_file_id),
-            'detail': product.detail,
+            'pic': product.main_image_file_id,
+            'description': product.description,
         }
             for product in products
         ],
@@ -71,7 +71,7 @@ async def get_categories():
 
     data = [
         {
-            'icon': get_url(category.file_id),
+            'icon': category.file_id,
             'id': category.id,
             'name': category.name,
         } for category in categories
