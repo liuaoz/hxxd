@@ -8,10 +8,11 @@ class Product(BaseModel):
     商品表
     """
     title = fields.CharField(max_length=50)
+    description = fields.TextField()
     price = fields.DecimalField(max_digits=10, decimal_places=2)
     stock = fields.IntField()
     status = fields.IntField(description="商品状态, 0: 下架, 1: 上架")
-    detail = fields.TextField()
+    detail_html = fields.TextField()
     is_hot = fields.BooleanField(default=False, description="是否是热门商品")
     category = fields.ForeignKeyField('models.Category', related_name='product_category')
     main_image_file_id = fields.IntField(description="商品主图file_id")

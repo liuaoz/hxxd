@@ -1,10 +1,8 @@
 from fastapi import APIRouter
 
 from config.base_config import SERVER_HOST, get_url
-from constant.file_constant import FileUsageType
 from core.response import JsonRet
 from service.category_service import CategoryService
-from service.file_service import FileService
 from service.home_banner_service import HomeBannerService
 from service.product_service import ProductService
 
@@ -22,7 +20,7 @@ async def get_tab_bar():
         },
         {
             "index": 1,
-            "text": '客服',
+            "text": 'AI助手',
             "iconPath": f'{SERVER_HOST}/file/900',
             "selectedIconPath": f'{SERVER_HOST}/file/1000'
         }, {
