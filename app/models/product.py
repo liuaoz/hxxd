@@ -10,7 +10,7 @@ class Product(BaseModel):
     商品表
     """
     title = fields.CharField(max_length=50)
-    description = fields.TextField()
+    sub_title = fields.TextField()
     price = fields.DecimalField(max_digits=10, decimal_places=2)
     stock = fields.IntField()
     status = fields.IntField(description="商品状态, 0: 下架, 1: 上架")

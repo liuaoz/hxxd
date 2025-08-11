@@ -53,10 +53,10 @@ async def home():
         'advertiseList': advertise_list,
         'hotProductList': [{
             'id': product.id,
-            'name': product.title,
+            'title': product.title,
             'price': product.price,
             'pic': product.main_image_file_id,
-            'description': product.description,
+            'subTitle': product.sub_title,
         }
             for product in products
         ],

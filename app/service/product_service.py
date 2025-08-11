@@ -27,6 +27,10 @@ class ProductService:
         return product_data
 
     @staticmethod
+    async def get_by_ids(product_ids: list[int]):
+        return await Product.filter(id__in=product_ids).all()
+
+    @staticmethod
     async def create(product_info: dict):
         await Product.create(**product_info)
 
