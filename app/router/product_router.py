@@ -24,8 +24,8 @@ async def get_product_list_by_category(request: Request):
 
 @product_router.get("/{product_id}")
 async def get_product_detail(product_id: int):
-    products = await ProductService.get(product_id)
-    return JsonRet(data=products)
+    product = await ProductService.get_product_detail(product_id)
+    return JsonRet(data=product)
 
 
 @product_router.get("/image/list/{product_id}")

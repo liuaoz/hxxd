@@ -1,7 +1,30 @@
+from constant.product_image import ProductImageType
 from models.product import Product
+from models.product_image import ProductImage
 
 
 class ProductService:
+
+    @staticmethod
+    async def get_product_detail(product_id):
+        """
+        获取商品详情
+        :param product_id: 商品ID
+        :return: 商品详情
+        """
+        product_data = await Product.get(id=product_id).values()
+        if not product_data:
+            return None
+
+        product_images = await ProductImage.filter(product_id=product_id).all()
+        product_data["thumbnail_images"] = [
+            img.file_id for img in product_images if img.type == ProductImageType.THUMBNAIL.value
+        ]
+        product_data["detail_images"] = [
+            img.file_id for img in product_images if img.type == ProductImageType.DETAIL.value
+        ]
+
+        return product_data
 
     @staticmethod
     async def create(product_info: dict):
