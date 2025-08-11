@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 
-from config.base_config import SERVER_HOST, get_url
 from core.response import JsonRet
 from service.category_service import CategoryService
 from service.home_banner_service import HomeBannerService

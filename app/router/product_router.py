@@ -1,30 +1,34 @@
-from fastapi import APIRouter, Path
+from fastapi import APIRouter, Request
 
 from core.response import JsonRet
 from service.product_service import ProductService
 
-good_router = APIRouter()
+product_router = APIRouter()
 
 
-@good_router.get("/list")
+@product_router.get("/list")
 async def get_product_list():
     return JsonRet(data=await ProductService.get_all())
 
 
 # 根据商品类别和分页条件，获取商品列表
-@good_router.get("/search")
-async def get_product_list_by_category(category_id: int, page: int = 1, size: int = 10):
-    goods = await ProductService.get_product_list_by_category_page(category_id, page, size)
-    return JsonRet(data=goods)
+@product_router.get("/search")
+async def get_product_list_by_category(request: Request):
+    params = request.query_params
+    page = int(params.get("pageNum", 1))
+    page_size = int(params.get("pageSize", 5))
+    category_id = int(params.get("productCategoryId"), 0)
+    products = await ProductService.get_product_list_by_category_page(category_id, page, page_size)
+    return JsonRet(data=products)
 
 
-@good_router.get("/{goods_id}")
+@product_router.get("/{goods_id}")
 async def get_product_detail(goods_id: int):
     goods = await ProductService.get(goods_id)
     return JsonRet(data=goods)
 
 
-@good_router.get("/image/list/{goods_id}")
+@product_router.get("/image/list/{goods_id}")
 async def get_product_images(goods_id: int):
     goods = await ProductService.get(goods_id)
     if not goods:
