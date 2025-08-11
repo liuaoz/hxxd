@@ -17,6 +17,8 @@ class ProductService:
 
     @staticmethod
     async def get_product_list_by_category_page(category_id: int, page: int = 1, size: int = 10):
+        if category_id is None:
+            return await Product.all().offset((page - 1) * size).limit(size).all()
         return await Product.filter(category_id=category_id).offset((page - 1) * size).limit(size).all()
 
     @staticmethod
