@@ -77,6 +77,23 @@ class CartService:
         return cart_items
 
     @staticmethod
+    async def get_selected_carts(user_id: int):
+        """
+        获取用户选中的购物车商品
+        :param user_id: 用户ID
+        :return: 选中的购物车商品列表
+        """
+        return await Cart.filter(user_id=user_id, selected=True).all()
+
+    @staticmethod
+    async def clear_selected_carts(user_id: int):
+        """
+        清空用户选中的购物车商品
+        :param user_id: 用户ID
+        """
+        await Cart.filter(user_id=user_id, selected=True).delete()
+
+    @staticmethod
     async def get_carts(user_id: int):
         return await Cart.filter(user_id=user_id).all()
 

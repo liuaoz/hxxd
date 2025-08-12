@@ -1,5 +1,5 @@
 drop table if exists product_image;
-drop table if exists order_detail;
+drop table if exists order_item;
 drop table if exists cart;
 drop table if exists home_banner;
 
