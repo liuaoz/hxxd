@@ -49,3 +49,9 @@ async def delete_cart(cart_id: int, user=Depends(get_current_user)):
 async def update_cart_quantity(cart_id: int, quantity: int, user=Depends(get_current_user)):
     await CartService.update_cart_quantity(user.id, cart_id, quantity)
     return JsonRet(message="更新购物车数量成功")
+
+
+@cart_router.get("/count")
+async def get_cart_count(user=Depends(get_current_user)):
+    count = await CartService.get_cart_count(user.id)
+    return JsonRet(data={"count": count})

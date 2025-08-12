@@ -1,7 +1,8 @@
 from config.db_config import init_db2
-from init.data import CATEGORIES, FILES, PRODUCTS, HOME_BANNERS
+from init.data import CATEGORIES, FILES, PRODUCTS, HOME_BANNERS, PRODUCTS_IMAGES
 from service.category_service import CategoryService
 from service.home_banner_service import HomeBannerService
+from service.product_image_service import ProductImageService
 from service.product_service import ProductService
 
 
@@ -34,6 +35,13 @@ async def init_home_banner():
         await HomeBannerService.create(banner)
 
 
+async def init_product_images():
+    await init_db2()
+    await ProductImageService.delete_all()
+    for product_image in PRODUCTS_IMAGES:
+        await ProductImageService.create(product_image)
+
+
 if __name__ == '__main__':
     import asyncio
 
@@ -41,3 +49,4 @@ if __name__ == '__main__':
     asyncio.run(init_category())
     asyncio.run(init_product())
     asyncio.run(init_home_banner())
+    asyncio.run(init_product_images())

@@ -241,3 +241,140 @@ PRODUCTS = [
     }
 
 ]
+
+PRODUCTS_IMAGES = [
+    {
+        'id': 10,
+        'product_id': 100,
+        'file_id': 50,
+        'type': 0
+    }, {
+        'id': 11,
+        'product_id': 100,
+        'file_id': 50,
+        'type': 1
+    }, {
+        'id': 12,
+        'product_id': 100,
+        'file_id': 50,
+        'type': 1
+    }, {
+        'id': 13,
+        'product_id': 100,
+        'file_id': 50,
+        'type': 2
+    }, {
+        'id': 14,
+        'product_id': 100,
+        'file_id': 50,
+        'type': 2
+    },
+
+    {
+        'id': 20,
+        'product_id': 200,
+        'file_id': 10,
+        'type': 0
+    }, {
+        'id': 21,
+        'product_id': 200,
+        'file_id': 10,
+        'type': 1
+    }, {
+        'id': 22,
+        'product_id': 200,
+        'file_id': 10,
+        'type': 1
+    }, {
+        'id': 23,
+        'product_id': 200,
+        'file_id': 10,
+        'type': 2
+    }, {
+        'id': 24,
+        'product_id': 200,
+        'file_id': 10,
+        'type': 2
+    },
+
+    {
+        'id': 30,
+        'product_id': 300,
+        'file_id': 40,
+        'type': 0
+    }, {
+        'id': 31,
+        'product_id': 300,
+        'file_id': 40,
+        'type': 1
+    }, {
+        'id': 32,
+        'product_id': 300,
+        'file_id': 40,
+        'type': 1
+    }, {
+        'id': 33,
+        'product_id': 300,
+        'file_id': 40,
+        'type': 2
+    }, {
+        'id': 34,
+        'product_id': 300,
+        'file_id': 40,
+        'type': 2
+    },
+
+    {
+        'id': 40,
+        'product_id': 400,
+        'file_id': 30,
+        'type': 0
+    }, {
+        'id': 41,
+        'product_id': 400,
+        'file_id': 30,
+        'type': 1
+    }, {
+        'id': 42,
+        'product_id': 400,
+        'file_id': 30,
+        'type': 1
+    }, {
+        'id': 43,
+        'product_id': 400,
+        'file_id': 30,
+        'type': 2
+    }, {
+        'id': 44,
+        'product_id': 400,
+        'file_id': 30,
+        'type': 2
+    },
+
+    {
+        'id': 50,
+        'product_id': 500,
+        'file_id': 70,
+        'type': 0
+    }, {
+        'id': 51,
+        'product_id': 500,
+        'file_id': 70,
+        'type': 1
+    }, {
+        'id': 52,
+        'product_id': 500,
+        'file_id': 70,
+        'type': 1
+    }, {
+        'id': 53,
+        'product_id': 500,
+        'file_id': 70,
+        'type': 2
+    }, {
+        'id': 54,
+        'product_id': 500,
+        'file_id': 70,
+        'type': 2
+    }
+]

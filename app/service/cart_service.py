@@ -5,6 +5,15 @@ from service.product_service import ProductService
 class CartService:
 
     @staticmethod
+    async def get_cart_count(user_id: int):
+        """
+        获取购物车商品总数量
+        :param user_id: 用户ID
+        :return: 商品总数量
+        """
+        return await Cart.filter(user_id=user_id).count()
+
+    @staticmethod
     async def update_cart_quantity(user_id: int, cart_id: int, quantity: int):
         """
         更新购物车商品数量
