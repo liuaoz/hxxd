@@ -4,6 +4,15 @@ from models.address import Address
 class AddressService:
 
     @staticmethod
+    async def get_default_address(user_id: int):
+        """
+        获取用户默认地址
+        :param user_id: 用户ID
+        :return: 默认地址对象或None
+        """
+        return await Address.filter(user_id=user_id, default_status=1).first()
+
+    @staticmethod
     async def create_address(address_info: dict, user_id: int):
         address_info.pop('id', None)
 

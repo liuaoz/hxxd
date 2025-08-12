@@ -55,6 +55,12 @@ async def get_address_list(user=Depends(get_current_user)):
     return JsonRet(data=addresses)
 
 
+@address_router.get("/default")
+async def get_default_address(user=Depends(get_current_user)):
+    address = await AddressService.get_default_address(user.id)
+    return JsonRet(data=AddressRequest.from_db(address) if address else None)
+
+
 @address_router.get("/{address_id}")
 async def get_address(address_id: int, user=Depends(get_current_user)):
     logging.log(logging.INFO, f"Fetching address with ID: {address_id} for user: {user.id}")

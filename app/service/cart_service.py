@@ -70,7 +70,8 @@ class CartService:
                     "price": product.price,
                     "quantity": cart.quantity,
                     "selected": cart.selected,
-                    "total_price": product.price * cart.quantity
+                    "total_price": product.price * cart.quantity,
+                    "main_image_file_id": product.main_image_file_id
                 })
 
         return cart_items
