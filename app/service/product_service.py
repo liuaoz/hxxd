@@ -1,4 +1,4 @@
-from constant.product_image import ProductImageType
+from constant.product_enum import ProductImageType
 from models.product import Product
 from models.product_image import ProductImage
 

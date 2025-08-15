@@ -1,4 +1,4 @@
-from constant.file_constant import FileUsageType
+from constant.file_enum import FileUsageType
 from models.file import File
 from service.minio_service import MinioService
 

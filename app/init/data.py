@@ -177,7 +177,7 @@ PRODUCTS = [
     {
         'id': 100,
         'title': '海参',
-        'price': 0.01,
+        'price': 1,
         'stock': 100,
         'status': 1,
         'sub_title': '海参是海洋中的一种软体动物，富含蛋白质和多种营养成分，具有滋补养生的功效。',
@@ -190,7 +190,7 @@ PRODUCTS = [
     {
         'id': 200,
         'title': '黑虎虾',
-        'price': 0.01,
+        'price': 1,
         'stock': 100,
         'status': 1,
         'sub_title': '黑虎虾是一种大型海虾，肉质鲜美，富含蛋白质和微量元素，是海鲜中的珍品。',
@@ -203,7 +203,7 @@ PRODUCTS = [
     {
         'id': 300,
         'title': '鲍鱼',
-        'price': 0.01,
+        'price': 1,
         'stock': 100,
         'status': 1,
         'sub_title': '鲍鱼是一种名贵的海贝类，肉质鲜嫩，营养丰富，常被视为海味珍品。',
@@ -216,7 +216,7 @@ PRODUCTS = [
     {
         'id': 400,
         'title': '大闸蟹',
-        'price': 0.01,
+        'price': 1,
         'stock': 100,
         'status': 1,
         'sub_title': '大闸蟹是中国特产，以其鲜美的蟹肉和蟹黄闻名，深受食客喜爱。',
@@ -229,7 +229,7 @@ PRODUCTS = [
     {
         'id': 500,
         'title': '紫菜',
-        'price': 0.01,
+        'price': 1,
         'stock': 100,
         'status': 1,
         'sub_title': '紫菜是一种常见的海藻，富含多种营养成分，常用于汤品和寿司等料理。',
@@ -239,75 +239,6 @@ PRODUCTS = [
         'main_image_file_id': 70,
         'thumbnail_image_file_id': 70
     }
-]
-
-PRODUCTS2 = [
-    {
-        'id': 100,
-        'title': '海参',
-        'price': 100.00,
-        'stock': 100,
-        'status': 1,
-        'sub_title': '海参是海洋中的一种软体动物，富含蛋白质和多种营养成分，具有滋补养生的功效。',
-        'detail_html': '<p>海参是海洋中的一种软体动物，富含蛋白质和多种营养成分，具有滋补养生的功效。</p>',
-        'is_hot': True,
-        'category_id': 5,
-        'main_image_file_id': 50,
-        'thumbnail_image_file_id': 50
-    },
-    {
-        'id': 200,
-        'title': '黑虎虾',
-        'price': 100.00,
-        'stock': 100,
-        'status': 1,
-        'sub_title': '黑虎虾是一种大型海虾，肉质鲜美，富含蛋白质和微量元素，是海鲜中的珍品。',
-        'detail_html': '<p>黑虎虾是一种大型海虾，肉质鲜美，富含蛋白质和微量元素，是海鲜中的珍品。</p>',
-        'is_hot': True,
-        'category_id': 1,
-        'main_image_file_id': 10,
-        'thumbnail_image_file_id': 10
-    },
-    {
-        'id': 300,
-        'title': '鲍鱼',
-        'price': 100.00,
-        'stock': 100,
-        'status': 1,
-        'sub_title': '鲍鱼是一种名贵的海贝类，肉质鲜嫩，营养丰富，常被视为海味珍品。',
-        'detail_html': '<p>鲍鱼是一种名贵的海贝类，肉质鲜嫩，营养丰富，常被视为海味珍品。</p>',
-        'is_hot': True,
-        'category_id': 4,
-        'main_image_file_id': 40,
-        'thumbnail_image_file_id': 40
-    },
-    {
-        'id': 400,
-        'title': '大闸蟹',
-        'price': 100.00,
-        'stock': 100,
-        'status': 1,
-        'sub_title': '大闸蟹是中国特产，以其鲜美的蟹肉和蟹黄闻名，深受食客喜爱。',
-        'detail_html': '<p>大闸蟹是中国特产，以其鲜美的蟹肉和蟹黄闻名，深受食客喜爱。</p>',
-        'is_hot': True,
-        'category_id': 3,
-        'main_image_file_id': 30,
-        'thumbnail_image_file_id': 30
-    },
-    {
-        'id': 500,
-        'title': '紫菜',
-        'price': 100.00,
-        'stock': 100,
-        'status': 1,
-        'sub_title': '紫菜是一种常见的海藻，富含多种营养成分，常用于汤品和寿司等料理。',
-        'detail_html': '<p>紫菜是一种常见的海藻，富含多种营养成分，常用于汤品和寿司等料理。</p>',
-        'is_hot': True,
-        'category_id': 7,
-        'main_image_file_id': 70,
-        'thumbnail_image_file_id': 70
-    }
-
 ]
 
 PRODUCTS_IMAGES = [

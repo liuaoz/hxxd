@@ -12,8 +12,8 @@ class OrderItem(BaseModel):
 
     product_title = fields.CharField(max_length=50)
     product_main_file_id = fields.IntField()
-    quantity = fields.IntField()
-    price = fields.DecimalField(max_digits=10, decimal_places=2)
+    quantity = fields.IntField(description="商品数量")
+    price = fields.IntField(description="商品价格, 单位: 分")
 
     class Meta:
-        table = "order_detail"
+        table = "order_item"

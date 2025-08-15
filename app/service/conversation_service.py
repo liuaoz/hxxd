@@ -2,7 +2,7 @@ import asyncio
 
 from config.db_config import init_db2
 from constant.constant import BOT_ID
-from constant.conversation_message import Sender, MessageType
+from constant.conversation_enum import Sender, MessageType
 from models.conversation import Conversation
 from util.util import generate_uuid
 
