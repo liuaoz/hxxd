@@ -1,10 +1,14 @@
 # fastapi
+import traceback
+
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from config.db_config import init_db
 from config.log_config import setup_logging
+from core.response import JsonRet
 from router import user_router, home_router, login_router, file_router, address_router, cart_router, chat_router, \
     product_router, order_router
 
@@ -13,6 +17,20 @@ setup_logging()
 app = FastAPI()
 
 init_db(app)
+
+
+@app.middleware("http")
+async def catch_exceptions_middleware(request: Request, call_next):
+    try:
+        return await call_next(request)
+    except Exception as exc:
+        # 记录完整的错误堆栈
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=500,
+            content=JsonRet(code=500, message="服务器内部错误").to_dict()
+        )
+
 
 # 挂载静态文件目录
 app.mount("/static", StaticFiles(directory="static"), name="static")
