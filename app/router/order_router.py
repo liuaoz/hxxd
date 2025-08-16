@@ -13,6 +13,18 @@ class OrderCreateRequest(BaseModel):
     addressId: int
 
 
+@order_router.put("/cancel/{order_id}")
+async def cancel_order(order_id: int, user=Depends(get_current_user)):
+    """
+    取消订单
+    :param order_id: 订单ID
+    :param user: 当前用户
+    :return: JsonRet
+    """
+    await OrderService.cancel_order(user.id, order_id)
+    return JsonRet(message="订单取消成功")
+
+
 @order_router.get("/list")
 async def list_orders(request: Request, user=Depends(get_current_user)):
     params = request.query_params

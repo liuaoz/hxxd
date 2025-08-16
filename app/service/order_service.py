@@ -16,6 +16,27 @@ from service.user_service import UserService
 class OrderService:
 
     @staticmethod
+    @atomic()
+    async def cancel_order(user_id: int, order_id: int):
+        order = await Order.get(id=order_id, user_id=user_id)
+        if not order:
+            raise ValueError("订单不存在或不属于当前用户")
+
+        if order.status != OrderStatus.PENDING_PAYMENT.value:
+            raise ValueError("订单状态不允许取消")
+
+        order.status = OrderStatus.CANCELED.value
+        await order.save()
+
+        # 这里可以添加库存回退逻辑
+        order_items = await OrderItemService.get_by_order_id(order_id)
+        for item in order_items:
+            product = await ProductService.get(item.product_id)
+            if product:
+                product.stock += item.quantity
+                await product.save()
+
+    @staticmethod
     async def get_orders(user_id: int, status: int = 0, page: int = 1, page_size: int = 10):
 
         if status == -1:
@@ -71,7 +92,9 @@ class OrderService:
 
         prepay_id = await WxPayService.prepay(order.order_no, order.total_amount, user.openid, '码农归农')
 
-        return await WxPayService.generated_pay_sign(f"prepay_id={prepay_id}")
+        pay_data =  await WxPayService.generated_pay_sign(f"prepay_id={prepay_id}")
+
+
 
     @staticmethod
     @atomic()

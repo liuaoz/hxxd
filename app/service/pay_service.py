@@ -74,7 +74,7 @@ class WxPayService:
         """
 
         headers = {
-            'Authorization': 'x',
+            'Authorization': 'WECHATPAY2-SHA256-RSA2048 ',
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         }
