@@ -7,6 +7,8 @@ import requests
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 
+from config.wx_config import WX_APP_ID
+
 
 class WeChatPayUtil:
     def __init__(self, mchid: str, serial_no: str, private_key_path: str):
@@ -24,10 +26,12 @@ class WeChatPayUtil:
         with open(path, "rb") as f:
             return serialization.load_pem_private_key(f.read(), password=None)
 
-    def sign(self, method: str, url_path: str, body: str, timestamp: str, nonce_str: str) -> str:
-        """生成签名字符串"""
+    def sign_for_jsapi(self, method: str, url_path: str, body: str, timestamp: str, nonce_str: str) -> str:
+        """生成签名字符串，供 JSAPI 支付使用"""
         message = f"{method}\n{url_path}\n{timestamp}\n{nonce_str}\n{body}\n"
+        return self.do_sign(message)
 
+    def do_sign(self, message):
         signature = self.private_key.sign(
             message.encode("utf-8"),
             padding.PKCS1v15(),
@@ -46,7 +50,7 @@ class WeChatPayUtil:
         nonce_str = str(uuid.uuid4())
         body_str = json.dumps(body, separators=(",", ":")) if body else ""
 
-        signature = self.sign(method, url_path, body_str, timestamp, nonce_str)
+        signature = self.sign_for_jsapi(method, url_path, body_str, timestamp, nonce_str)
 
         authorization = (
             f'WECHATPAY2-SHA256-RSA2048 '
@@ -63,6 +67,9 @@ class WeChatPayUtil:
             "Accept": "application/json"
         }
         return headers, body_str
+
+    def build_message(self, time_stamp, nonce_str, prepay_id):
+        return f"{WX_APP_ID}\n{time_stamp}\n{nonce_str}\nprepay_id={prepay_id}\n"
 
     def post(self, url: str, url_path: str, body: dict):
         """发起 POST 请求（自动带签名）"""

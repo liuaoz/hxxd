@@ -57,8 +57,8 @@ async def generate_confirm_order(user=Depends(get_current_user)):
 
 @order_router.post("/prepay/{order_id}")
 async def prepay(order_id: int, user=Depends(get_current_user)):
-    prepay_id = await OrderService.prepay(user.id, order_id)
-    return JsonRet(data={"prepay_id": prepay_id}, message="预支付成功")
+    pay_info = await OrderService.prepay(user.id, order_id)
+    return JsonRet(data=pay_info, message="预支付成功")
 
 
 @order_router.post("/generateOrder")

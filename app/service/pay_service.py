@@ -1,3 +1,6 @@
+import time
+import uuid
+
 from config.wx_config import WX_MCH_ID, WX_APP_ID, WX_API_PRIVATE_KEY_PATH, WX_NOTIFY_URL, WX_MCH_SERIAL_NO
 from util.wxpay_util import WeChatPayUtil
 
@@ -29,4 +32,17 @@ class WxPayService:
             raise Exception(f"预支付失败: {resp.text}")
 
         data = resp.json()
-        return data['prepay_id']
+        prepay_id = data['prepay_id']
+
+        time_stamp = str(int(time.time()))
+        nonce_str = str(uuid.uuid4()).replace('-', '')
+
+        pay_sign = pay_util.do_sign(pay_util.build_message(time_stamp, nonce_str, prepay_id))
+
+        return {
+            "package": f'prepay_id={prepay_id}',
+            "time_stamp": time_stamp,
+            "nonce_str": nonce_str,
+            "pay_sign": pay_sign,
+            "sign_type": "RSA"
+        }
