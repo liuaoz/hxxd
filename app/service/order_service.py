@@ -11,6 +11,7 @@ from service.address_service import AddressService
 from service.cart_service import CartService
 from service.product_service import ProductService
 from service.user_service import UserService
+from util.util import generate_order_no
 
 
 class OrderService:
@@ -90,11 +91,7 @@ class OrderService:
         if order.status != OrderStatus.PENDING_PAYMENT.value:
             raise ValueError("订单状态不允许预支付")
 
-        prepay_id = await WxPayService.prepay(order.order_no, order.total_amount, user.openid, '码农归农')
-
-        pay_data =  await WxPayService.generated_pay_sign(f"prepay_id={prepay_id}")
-
-
+        return await WxPayService.prepay(order.order_no, order.total_amount, user.openid, 'test_description')
 
     @staticmethod
     @atomic()
@@ -123,7 +120,7 @@ class OrderService:
 
         order_param = {
             "user_id": user_id,
-            "order_no": "ORD123456789",  # 生成订单号的逻辑可以更复杂
+            "order_no": generate_order_no(),
             "address_id": address_id,
 
             "status": OrderStatus.PENDING_PAYMENT.value,

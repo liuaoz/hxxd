@@ -45,37 +45,23 @@ async def pay_success_notify(request: Request):
     :return: JsonRet
     """
     body = await request.body()
-    # 这里应该调用订单服务的支付成功通知方法
     # 例如：await OrderService.pay_success_notify(body)
     return JsonRet(message="支付成功通知处理成功")
 
 
 @order_router.post("/generateConfirmOrder")
 async def generate_confirm_order(user=Depends(get_current_user)):
-    """
-    生成确认订单
-    :param user: 当前用户
-    :return: JsonRet
-    """
-    # 这里应该调用订单服务的生成确认订单方法
     # 例如：await OrderService.generate_confirm_order(user.id)
     return JsonRet(message="确认订单生成成功")
 
 
 @order_router.post("/prepay/{order_id}")
 async def prepay(order_id: int, user=Depends(get_current_user)):
-    """
-    预支付
-    :param user: 当前用户
-    :return: JsonRet
-    """
-    # 这里应该调用订单服务的预支付方法
-    await OrderService.prepay(user.id, order_id)
-    return JsonRet(message="预支付成功")
+    prepay_id = await OrderService.prepay(user.id, order_id)
+    return JsonRet(data={"prepay_id": prepay_id}, message="预支付成功")
 
 
 @order_router.post("/generateOrder")
 async def generate_order(body: OrderCreateRequest, user=Depends(get_current_user)):
-    print(body.addressId)
     order_id = await OrderService.create_order(user.id, body.addressId)
     return JsonRet(data={"id": order_id}, message="订单生成成功")
