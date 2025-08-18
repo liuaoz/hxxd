@@ -11,6 +11,7 @@ from service.address_service import AddressService
 from service.cart_service import CartService
 from service.product_service import ProductService
 from service.user_service import UserService
+from util.order_util import generate_out_trade_no
 from util.util import generate_order_no
 
 
@@ -91,7 +92,13 @@ class OrderService:
         if order.status != OrderStatus.PENDING_PAYMENT.value:
             raise ValueError("订单状态不允许预支付")
 
-        return await WxPayService.prepay(order.order_no, order.total_amount, user.openid, 'test_description')
+        out_trade_no = generate_out_trade_no(order.order_no, order.out_trade_no)
+
+        order.out_trade_no = out_trade_no
+
+        await Order.save(order)
+
+        return await WxPayService.prepay(out_trade_no, order.total_amount, user.openid, 'test_description')
 
     @staticmethod
     @atomic()

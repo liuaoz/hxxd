@@ -34,7 +34,7 @@ class WxPayService:
         data = resp.json()
         prepay_id = data['prepay_id']
 
-        time_stamp = str(int(time.time()))
+        time_stamp = int(time.time())
         nonce_str = str(uuid.uuid4()).replace('-', '')
 
         pay_sign = pay_util.do_sign(pay_util.build_message(time_stamp, nonce_str, prepay_id))
