@@ -2,20 +2,30 @@ import time
 
 from tortoise.transactions import atomic
 
+from config.wx_config import WX_API_PUBLIC_KEY_PATH
 from constant.order_enum import OrderPayType, OrderStatus
 from models.order import Order
 from models.order_item import OrderItem
-from service.order_item_service import OrderItemService
-from service.pay_service import WxPayService
 from service.address_service import AddressService
 from service.cart_service import CartService
+from service.order_item_service import OrderItemService
+from service.pay_service import WxPayService
 from service.product_service import ProductService
 from service.user_service import UserService
 from util.order_util import generate_out_trade_no
 from util.util import generate_order_no
+from util.wxpay_util import verify_wechat_signature
+from vo.wx.wx_vo import PaySuccessHeader
 
 
 class OrderService:
+
+    @staticmethod
+    async def get_order_by_out_trade_no(out_trade_no: str):
+        order = await Order.get_or_none(out_trade_no=out_trade_no)
+        if not order:
+            raise ValueError("订单不存在")
+        return order
 
     @staticmethod
     @atomic()
@@ -77,9 +87,38 @@ class OrderService:
         return order_list
 
     @staticmethod
-    async def generate_confirm_order(user_id: int):
-        # 这里实现生成确认订单的逻辑
-        pass
+    async def pay_success_notify(header: dict[str, str], body: str):
+
+        # 这里可以解析 body，验证签名等
+        valid = verify_wechat_signature(header, body)
+        if not valid:
+            raise ValueError("微信支付通知签名验证失败")
+
+        # 解析支付成功的通知数据
+        from vo.wx.wx_vo import WechatPayNotify, DecryptedData
+        notify = WechatPayNotify.model_validate_json(body)
+        resource = notify.resource
+
+        from util.wxpay_util import decrypt_wechat_data
+        decrypted_data = decrypt_wechat_data(resource)
+
+        if not decrypted_data:
+            raise ValueError("解密微信支付通知数据失败")
+
+        data = DecryptedData.model_validate(decrypted_data)
+
+        # 根据 out_trade_no 查询订单
+        order = await OrderService.get_order_by_out_trade_no(data.out_trade_no)
+        if not order:
+            raise ValueError("订单不存在")
+
+        if order.status != OrderStatus.PENDING_PAYMENT.value:
+            raise ValueError("订单状态不允许支付")
+
+        # 更新订单状态
+        order.status = OrderStatus.PENDING_SHIPMENT.value
+        order.payment_time = data.success_time
+        await Order.save(order)
 
     @staticmethod
     async def prepay(user_id: int, order_id: int):

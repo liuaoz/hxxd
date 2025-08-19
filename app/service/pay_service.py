@@ -26,7 +26,7 @@ class WxPayService:
 
         pay_util = WeChatPayUtil(WX_MCH_ID, WX_MCH_SERIAL_NO, WX_API_PRIVATE_KEY_PATH)
 
-        resp = pay_util.post('https://api.mch.weixin.qq.com', '/v3/pay/transactions/jsapi', body)
+        resp = pay_util.create_order('https://api.mch.weixin.qq.com', '/v3/pay/transactions/jsapi', body)
 
         if resp.status_code != 200:
             raise Exception(f"预支付失败: {resp.text}")
@@ -37,7 +37,7 @@ class WxPayService:
         time_stamp = str(int(time.time()))
         nonce_str = str(uuid.uuid4()).replace('-', '')
 
-        pay_sign = pay_util.do_sign(pay_util.build_message(time_stamp, nonce_str, prepay_id))
+        pay_sign = pay_util.sign_for_pay(prepay_id, time_stamp, nonce_str)
 
         return {
             "package": f'prepay_id={prepay_id}',
