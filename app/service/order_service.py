@@ -2,7 +2,7 @@ import time
 
 from tortoise.transactions import atomic
 
-from config.wx_config import WX_API_PUBLIC_KEY_PATH
+from config.wx_config import WX_API_PUBLIC_KEY_PATH, WX_API_PRIVATE_KEY_PATH
 from constant.order_enum import OrderPayType, OrderStatus
 from models.order import Order
 from models.order_item import OrderItem
@@ -14,7 +14,7 @@ from service.product_service import ProductService
 from service.user_service import UserService
 from util.order_util import generate_out_trade_no
 from util.util import generate_order_no
-from util.wxpay_util import verify_wechat_signature
+from util.wx_security_util import WeChatPaySecurity
 from vo.wx.wx_vo import PaySuccessHeader
 
 
@@ -87,10 +87,12 @@ class OrderService:
         return order_list
 
     @staticmethod
-    async def pay_success_notify(header: dict[str, str], body: str):
+    async def pay_success_notify(header: PaySuccessHeader, body: str):
+
+        wechat_pay_security = WeChatPaySecurity(WX_API_PRIVATE_KEY_PATH, WX_API_PUBLIC_KEY_PATH)
 
         # 这里可以解析 body，验证签名等
-        valid = verify_wechat_signature(header, body)
+        valid = wechat_pay_security.verify_wechatpay_signature(header, body)
         if not valid:
             raise ValueError("微信支付通知签名验证失败")
 

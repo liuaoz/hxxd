@@ -161,6 +161,5 @@ class WeChatPayUtil:
         return headers, body_str
 
     def create_order(self, url: str, url_path: str, body: dict):
-        """发起 POST 请求（自动带签名）"""
         headers, body_str = self._build_authorization("POST", url_path, body)
         return requests.post(url + url_path, headers=headers, data=body_str)

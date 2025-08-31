@@ -1,12 +1,12 @@
 import logging
 
-from fastapi import APIRouter, Depends, Request, Header
+from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel
 
 from constant.url_constant import ORDER_PAY_SUCCESS_NOTIFY
 from core.response import JsonRet
-from service.order_service import OrderService
 from router.login_router import get_current_user
+from service.order_service import OrderService
 from vo.wx.wx_vo import PaySuccessHeader
 
 order_router = APIRouter()
@@ -39,22 +39,16 @@ async def list_orders(request: Request, user=Depends(get_current_user)):
     return JsonRet(data=orders, message="订单列表获取成功")
 
 
-# 支付成功通知
 @order_router.post(ORDER_PAY_SUCCESS_NOTIFY)
 async def pay_success_notify(request: Request):
     body = await request.body()
     body = body.decode("utf-8")
 
-    logging.info(f"Received payment success notification: {body}")
+    header = PaySuccessHeader(**request.headers)
 
-    logging.info(f"Headers: {dict(request.headers)}")
+    logging.info(f'Received payment notification: headers={header}, body={body}')
 
-    await OrderService.pay_success_notify(dict(request.headers), body)
-
-    # 测试失败
-    raise Exception("测试失败")
-
-    # return JsonRet(message="支付成功通知处理成功")
+    await OrderService.pay_success_notify(header, body)
 
 
 @order_router.post("/generateConfirmOrder")
