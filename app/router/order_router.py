@@ -44,7 +44,10 @@ async def pay_success_notify(request: Request):
     body = await request.body()
     body = body.decode("utf-8")
 
-    header = PaySuccessHeader(**request.headers)
+    header = PaySuccessHeader(wechatpay_nonce=request.headers.get("Wechatpay-Nonce"),
+                              wechatpay_serial=request.headers.get("Wechatpay-Serial")
+                              , wechatpay_signature=request.headers.get("Wechatpay-Signature"),
+                              wechatpay_timestamp=request.headers.get("Wechatpay-Timestamp"))
 
     logging.info(f'Received payment notification: headers={header}, body={body}')
 
