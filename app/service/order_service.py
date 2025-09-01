@@ -1,3 +1,4 @@
+import logging
 import time
 
 from tortoise.transactions import atomic
@@ -15,7 +16,8 @@ from service.user_service import UserService
 from util.order_util import generate_out_trade_no
 from util.util import generate_order_no
 from util.wx_security_util import WeChatPaySecurity
-from vo.wx.wx_vo import PaySuccessHeader
+from util.wxpay_util import decrypt_wechat_data
+from vo.wx.wx_vo import PaySuccessHeader, WechatPayNotify, DecryptedData
 
 
 class OrderService:
@@ -97,11 +99,10 @@ class OrderService:
             raise ValueError("微信支付通知签名验证失败")
 
         # 解析支付成功的通知数据
-        from vo.wx.wx_vo import WechatPayNotify, DecryptedData
         notify = WechatPayNotify.model_validate_json(body)
         resource = notify.resource
 
-        from util.wxpay_util import decrypt_wechat_data
+        logging.info(f'Received payment notification resource: {resource}')
         decrypted_data = decrypt_wechat_data(resource)
 
         if not decrypted_data:
