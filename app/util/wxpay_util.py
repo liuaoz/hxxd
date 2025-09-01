@@ -5,12 +5,12 @@ import json
 import logging
 import time
 import uuid
-from datetime import datetime
 from typing import Optional
 
 import requests
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 from config.wx_config import WX_APP_ID, WX_API_PUBLIC_KEY_PATH, WX_APP_SECRET
 from vo.wx.wx_vo import WechatPayResource
@@ -19,7 +19,6 @@ from vo.wx.wx_vo import WechatPayResource
 def decrypt_wechat_data(resource: WechatPayResource) -> Optional[dict]:
     """
     解密微信支付通知数据 (AES-GCM解密)
-
     Args:
         resource: 加密的资源数据
         api_key: 商户API密钥
@@ -29,28 +28,16 @@ def decrypt_wechat_data(resource: WechatPayResource) -> Optional[dict]:
     """
     try:
         # AEAD_AES_256_GCM
-
         logging.info(f"解密数据: {resource.ciphertext}")
 
+        associated_data = resource.associated_data.encode('utf-8') if resource.associated_data else b""
+        nonce = resource.nonce.encode('utf-8')
         ciphertext = base64.b64decode(resource.ciphertext)
-
-        # 注意：这里的 API_KEY 应该是商户平台设置的 API 密钥
-        from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-        aesgcm = AESGCM(WX_APP_SECRET.encode('utf-8'))
-        decrypted_data = aesgcm.decrypt(
-            nonce=resource.nonce.encode('utf-8'),
-            data=ciphertext,
-            associated_data=resource.associated_data.encode('utf-8') if resource.associated_data else None
-        )
-
-        logging.info(f"decrypted_data: {decrypted_data}")
-
-        return json.loads(decrypted_data)
-
-
-
-
-
+        aesgcm = AESGCM(WX_APP_SECRET)
+        decrypted_data = aesgcm.decrypt(nonce, ciphertext, associated_data)
+        decrypted_json = decrypted_data.decode('utf-8')
+        logging.info(f"解密后的数据: {decrypted_json}")
+        return json.loads(decrypted_json)
     except Exception as e:
         logging.error(f"数据解密失败: {e}")
         return None
