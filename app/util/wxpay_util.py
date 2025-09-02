@@ -12,7 +12,7 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-from config.wx_config import WX_APP_ID, WX_API_PUBLIC_KEY_PATH, WX_APP_SECRET
+from config.wx_config import WX_APP_ID, WX_API_PUBLIC_KEY_PATH, WX_API_V3_KEY
 from vo.wx.wx_vo import WechatPayResource
 
 
@@ -33,7 +33,7 @@ def decrypt_wechat_data(resource: WechatPayResource) -> Optional[dict]:
         associated_data = resource.associated_data.encode('utf-8') if resource.associated_data else b""
         nonce = resource.nonce.encode('utf-8')
         ciphertext = base64.b64decode(resource.ciphertext)
-        aesgcm = AESGCM(WX_APP_SECRET)
+        aesgcm = AESGCM(WX_API_V3_KEY)
         decrypted_data = aesgcm.decrypt(nonce, ciphertext, associated_data)
         decrypted_json = decrypted_data.decode('utf-8')
         logging.info(f"解密后的数据: {decrypted_json}")
