@@ -33,7 +33,7 @@ def decrypt_wechat_data(resource: WechatPayResource) -> Optional[dict]:
         associated_data = resource.associated_data.encode('utf-8') if resource.associated_data else b""
         nonce = resource.nonce.encode('utf-8')
         ciphertext = base64.b64decode(resource.ciphertext)
-        aesgcm = AESGCM(WX_API_V3_KEY)
+        aesgcm = AESGCM(WX_API_V3_KEY.encode('utf-8'))
         decrypted_data = aesgcm.decrypt(nonce, ciphertext, associated_data)
         decrypted_json = decrypted_data.decode('utf-8')
         logging.info(f"解密后的数据: {decrypted_json}")
