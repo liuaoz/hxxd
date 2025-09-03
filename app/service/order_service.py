@@ -3,7 +3,7 @@ import time
 
 from tortoise.transactions import atomic
 
-from config.wx_config import WX_API_PUBLIC_KEY_PATH, WX_API_PRIVATE_KEY_PATH
+from config.wx_config import WX_PAY_PUBLIC_KEY_ID, WX_API_PRIVATE_KEY_PATH
 from constant.order_enum import OrderPayType, OrderStatus
 from models.order import Order
 from models.order_item import OrderItem
@@ -91,7 +91,7 @@ class OrderService:
     @staticmethod
     async def pay_success_notify(header: PaySuccessHeader, body: str):
 
-        wechat_pay_security = WeChatPaySecurity(WX_API_PRIVATE_KEY_PATH, WX_API_PUBLIC_KEY_PATH)
+        wechat_pay_security = WeChatPaySecurity(WX_API_PRIVATE_KEY_PATH, WX_PAY_PUBLIC_KEY_ID)
 
         # 这里可以解析 body，验证签名等
         valid = wechat_pay_security.verify_wechatpay_signature(header, body)
@@ -190,7 +190,7 @@ class OrderService:
                 "product_title": next((p.title for p in products if p.id == cart.product_id), ""),
                 "product_main_file_id": next((p.main_image_file_id for p in products if p.id == cart.product_id), 0),
                 "quantity": cart.quantity,
-                "price": next((p.price for p in products if p.id == cart.product_id), 10000),
+                "price": next((p.price for p in products if p.id == cart.product_id), None),
             }
             for cart in selected_carts
         ]

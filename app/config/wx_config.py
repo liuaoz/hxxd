@@ -7,6 +7,6 @@ WX_APP_SECRET = os.getenv('WX_APP_SECRET')
 WX_NOTIFY_URL = os.getenv('WX_NOTIFY_URL')
 WX_API_V3_KEY = os.getenv('WX_API_V3_KEY')
 WX_API_PRIVATE_KEY_PATH = os.getenv('WX_API_PRIVATE_KEY_PATH')
-WX_API_PUBLIC_KEY_PATH = os.getenv('WX_API_PUBLIC_KEY_PATH')
+WX_PAY_PUBLIC_KEY_ID = os.getenv('WX_PAY_PUBLIC_KEY_ID')
 
 JSAPI_URL = os.getenv('JSAPI_URL', 'https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi')

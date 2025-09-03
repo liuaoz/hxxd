@@ -12,7 +12,7 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-from config.wx_config import WX_APP_ID, WX_API_PUBLIC_KEY_PATH, WX_API_V3_KEY
+from config.wx_config import WX_APP_ID, WX_PAY_PUBLIC_KEY_ID, WX_API_V3_KEY
 from vo.wx.wx_vo import WechatPayResource
 
 
@@ -70,7 +70,7 @@ def verify_wechat_signature(headers: dict[str, str], body: str) -> bool:
         # 使用API密钥进行HMAC-SHA256签名
         # 注意：实际应用中需要根据微信提供的平台证书验证签名
         # 这里简化处理，实际生产环境需要完整的证书验证流程
-        with open(WX_API_PUBLIC_KEY_PATH, "rb") as f:
+        with open(WX_PAY_PUBLIC_KEY_ID, "rb") as f:
             private_key = serialization.load_pem_private_key(f.read(), password=None)
         expected_signature = hmac.new(
             private_key.encode('utf-8'),
