@@ -30,6 +30,15 @@ class WechatPayNotify(BaseModel):
     resource: WechatPayResource
 
 
+# {"mchid":"1550938701","appid":"wx3155c0d75306acc8","out_trade_no":"133868975711_2","transaction_id":"4200002800202509027966147114"
+# ,"trade_type":"JSAPI","trade_state":"SUCCESS","trade_state_desc":"支付成功","bank_type":"OTHERS","attach":"","success_time":"2025-09-02T22:01:31+08:00"
+# ,"payer":{"openid":"owJBV43C3ugI76lqpuFpzWQt7o3c"}
+# ,"amount":{"total":1,"payer_total":1,"currency":"CNY","payer_currency":"CNY"}}
+
+class Payer(BaseModel):
+    openid: str
+
+
 class DecryptedData(BaseModel):
     """解密后的支付数据"""
     appid: str
@@ -44,5 +53,5 @@ class DecryptedData(BaseModel):
     success_time: Optional[datetime]
     payer: dict
     amount: dict
-    scene_info: Optional[dict]
-    promotion_detail: Optional[list[dict]]
+    scene_info: Optional[dict] = None
+    promotion_detail: Optional[list[dict]] = None
