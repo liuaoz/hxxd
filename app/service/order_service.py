@@ -3,7 +3,7 @@ import time
 
 from tortoise.transactions import atomic
 
-from config.wx_config import WX_PAY_PUBLIC_KEY_ID, WX_API_PRIVATE_KEY_PATH
+from config.wx_config import WX_API_PRIVATE_KEY_PATH, WX_PAY_PUBLIC_KEY_PATH
 from constant.order_enum import OrderPayType, OrderStatus
 from models.order import Order
 from models.order_item import OrderItem
@@ -91,7 +91,7 @@ class OrderService:
     @staticmethod
     async def pay_success_notify(header: PaySuccessHeader, body: str):
 
-        wechat_pay_security = WeChatPaySecurity(WX_API_PRIVATE_KEY_PATH, WX_PAY_PUBLIC_KEY_ID)
+        wechat_pay_security = WeChatPaySecurity(WX_API_PRIVATE_KEY_PATH, WX_PAY_PUBLIC_KEY_PATH)
 
         # 这里可以解析 body，验证签名等
         valid = wechat_pay_security.verify_wechatpay_signature(header, body)
