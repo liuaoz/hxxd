@@ -60,6 +60,4 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 
 @login_router.get("/info")
 async def get_user_info(user=Depends(get_current_user)):
-    return JsonRet(code=400, data={
-        'username': '测试',
-    })
+    return JsonRet()

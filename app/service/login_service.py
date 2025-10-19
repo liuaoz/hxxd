@@ -1,5 +1,6 @@
 import base64
 import json
+import logging
 
 from Crypto.Cipher import AES
 from pydantic import BaseModel
@@ -24,6 +25,7 @@ def decrypt_user_info(encrypted_data, iv, session_key):
     decrypted_data = decrypted_data[:-padding]
 
     # 解析 JSON 数据
+    logging.info(f'decrypted_data: {decrypted_data}')
     user_info = json.loads(decrypted_data.decode('utf-8'))
     return user_info
 

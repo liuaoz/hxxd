@@ -5,12 +5,13 @@ import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 from config.db_config import init_db
 from config.log_config import setup_logging
 from core.response import JsonRet
 from router import user_router, home_router, login_router, file_router, address_router, cart_router, chat_router, \
-    product_router, order_router
+    product_router, order_router, visa_user_router
 
 setup_logging()
 
@@ -49,6 +50,17 @@ app.include_router(chat_router.chat_router, prefix="/chat")
 app.include_router(product_router.product_router, prefix="/product")
 
 app.include_router(order_router.order_router, prefix="/order")
+
+app.include_router(visa_user_router.visa_user_router, prefix="/visa")
+
+# CORS 配置
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 开发阶段可以这样设置
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 if __name__ == '__main__':
     uvicorn.run(app='app.main:app', host="0.0.0.0", port=8080, reload=False)
